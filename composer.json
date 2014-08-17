@@ -1,0 +1,141 @@
+{
+    "name": "danack/BastionRPM",
+    "description": "The application I use to manage composer and RPM packages.",
+    "keywords": ["packages", "rpm", "satis"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dan Ackroyd",
+            "email": "Danack@basereality.com"
+        }
+    ],
+    
+    "repositories": [
+        {
+            "packagist": false
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "bagder/ca-bundle",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/bagder/ca-bundle",
+                    "type": "git",
+                    "reference": "origin/master"
+                }
+            }
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Danack/composer"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Danack/DanackCode"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Danack/http2"
+        },
+        {
+            "type": "vcs",
+            "url": "/documents/projects/github/GithubArtaxService"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Danack/ArtaxServiceBuilder"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/rdlowrey/acesync"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/rdlowrey/after"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/rdlowrey/artax"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/rdlowrey/auryn"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/DaveRandom/Addr"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/rdlowrey/alert"
+        },
+        {
+             "type": "vcs",
+             "url": "https://github.com/daverandom/libdns"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/Process"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/Finder"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/maximebf/ConsoleKit"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Seldaek/jsonlint"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/justinrainbow/json-schema"
+        },
+    
+        {
+            "type": "vcs",
+            "url": "https://github.com/composer/satis"
+        },
+    
+        {
+            "type": "vcs",
+            "url": "https://github.com/guzzle/guzzle3"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/aws/aws-sdk-php"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/nrk/predis"
+        },
+        { 
+            "type": "vcs", 
+             "url": "https://github.com/Danack/Bastion"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/console"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/fabpot/Twig"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/symfony/EventDispatcher"
+        }
+    ],
+ 
+    "require": {
+        "aws/aws-sdk-php": "2.5.*",
+        "danack/bastion": "~0.0.2"
+    },
+    "autoload": {
+        "psr-0": { "Bastion": "lib/" }
+    },
+    "minimum-stability": "dev"
+}

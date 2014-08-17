@@ -1,0 +1,76 @@
+# Don't try fancy stuff like debuginfo, which is useless on binary-only
+# packages. Don't strip binary too
+# Be sure buildpolicy set to do nothing
+%define        __spec_install_post %{nil}
+%define          debug_package %{nil}
+%define        __os_install_post %{_dbpath}/brp-compress
+
+Summary: Image Magick package
+Name: ImageMagick
+Version: 6.8.9
+Release: 5
+License: None
+Group: Development/Tools
+# SOURCE0 : %{name}-%{version}.tar.gz
+# SOURCE0 : https://github.com/mkoppanen/imagick/archive/master.tar.gz
+SOURCE0 : ImageMagick-6.8.9-5.tar.gz
+URL: http://www.imagemagick.org/script/download.php
+
+
+#AutoReqProv: no
+
+#BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
+
+BuildRoot: %{_tmppath}/ImageMagick-%{version}-%{release}-root
+BuildRequires:  bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
+#BuildRequires:  libtiff-devel, giflib-devel, zlib-devel, perl-devel >= 5.8.1
+BuildRequires:  zlib-devel
+#BuildRequires:  ghostscript-devel, djvulibre-devel
+#BuildRequires:  libwmf-devel, jasper-devel, libtool-ltdl-devel
+#BuildRequires:  jasper-devel
+#BuildRequires:  libX11-devel, libXext-devel, libXt-devel
+BuildRequires:  libxml2-devel
+
+
+%description
+%{summary}
+
+%prep
+#%setup -q
+%setup -q -n ImageMagick-%{version}-%{release}
+
+
+%build
+# rm -rf %{buildroot}
+mkdir -p  %{buildroot}
+
+
+#./configure --enable-hdri --with-quantum-depth=32 --with-magick-plus-plus=no && /usr/bin/make install
+./configure --with-quantum-depth=16 --with-magick-plus-plus=no
+echo "*******************"
+echo "*******************"
+make install
+echo "*******************"
+echo "*******************"
+
+
+%install
+#mkdir -p %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20131226/
+#pwd
+#%{__install} -m 755 ./modules/imagick.so %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20131226/imagick.so
+
+
+%clean
+#rm -rf %{buildroot}
+
+%files
+%defattr(-,root,root,-)
+# %doc doc/*
+#/usr/local/lib/php/extensions/no-debug-zts-20131226/imagick.so
+
+
+%changelog
+* Thu Apr 24 2009  Elia Pinto <devzero2000@rpm5.org> 1.0-1
+- First Build
+
+EOF

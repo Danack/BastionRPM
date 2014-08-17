@@ -1,0 +1,25 @@
+{
+  "run_list": [
+      "recipe[centos]",
+      "recipe[repos]",
+      "recipe[packages]"
+  ],
+
+  "fqdn": "rpm.basereality.test",
+  "servername": "rpmbasereality",
+  "domain": "rpm.basereality.test",
+  "timezone": "Etc/UTC",
+
+  "postfix": {
+    "mail_type": "default"
+  },
+
+  "rvm": {
+    "version": "head",
+    "track_updates": true,
+    "ruby": {
+      "version": "1.9.2",
+      "default": true
+    }
+  }
+}
