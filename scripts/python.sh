@@ -14,21 +14,36 @@ for file in "${files[@]}"
 do
    :
    cd $startDir
+   rm -rf /tmp/$file
    mkdir /tmp/$file
    cp ../packages/$file.tar.gz /tmp/$file/$file.tar.gz
    cd /tmp/$file
    tar -zxvf $file.tar.gz
    cd $file
    
-   python setup.py bdist_rpm 
-   
+   cat <<EOF > clean.txt
+   #shamoan MOFO
+EOF
+
+#python setup.py install --single-version-externally-managed -O1 --root=\$RPM_BUILD_ROOT --record=INSTALLED_FILES
+
    cat <<EOF > install.txt
-   python setup.py install -O1 --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+
+    python setup.py install -O1 --root=\$RPM_BUILD_ROOT --record=INSTALLED_FILES
    #cp INSTALLED_FILES INSTALLED_FILES_BACKUP
    sed -i -e 's/.*/"\/\0"/' INSTALLED_FILES
 EOF
 
-   python setup.py bdist_rpm --install-script install.txt
+    #python setup.py bdist_rpm --install-script=install.txt --clean-script clean.txt
+    python setup.py bdist_rpm --install-script=install.txt
+    
+    #python setup.py bdist_rpm
+    
+    rc=$?
+    if [[ $rc != 0 ]] ; then
+        echo "Failed to build rpm ${file}"
+        exit $rc
+    fi
 
    cp dist/*.noarch.rpm $startDir/../repo/RPMS/noarch
    cp dist/*.src.rpm $startDir/../repo/SRPMS/noarch

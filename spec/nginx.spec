@@ -232,6 +232,7 @@ getent group %{nginx_group} >/dev/null || groupadd -r %{nginx_group}
 getent passwd %{nginx_user} >/dev/null || \
     useradd -r -g %{nginx_group} -s /sbin/nologin \
     -d %{nginx_home} -c "nginx user"  %{nginx_user}
+usermod -a -G www-data nginx
 exit 0
 
 %post

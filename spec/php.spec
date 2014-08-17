@@ -21,6 +21,8 @@ SOURCE1:        php.ini
 SOURCE2:        php-cli.ini
 SOURCE3:        apcu-4.0.6.tgz
 SOURCE4:        yaml-1.1.0.tgz
+SOURCE5:        php-fpm.conf
+
 URL: http://php.net/
 
 #AutoReqProv: no
@@ -40,9 +42,9 @@ mv apcu-4.0.6 ext/apcu
 %setup -T -D -a 4 -n php-%{version}
 mv yaml-1.1.0 ext/yaml
 
-
 %build
 mkdir -p  %{buildroot}
+./buildconf --force
 ./configure  \
                 --disable-cgi \
                 --disable-debug \
@@ -92,6 +94,7 @@ install -Dp -m0755 sapi/fpm/init.d.php-fpm.in %{buildroot}%{_initrddir}/php-fpm
 %{__make} install INSTALL_ROOT="%{buildroot}"
 cp %{SOURCE1} %{buildroot}/etc/php.ini
 cp %{SOURCE2} %{buildroot}/etc/php-cli.ini
+cp %{SOURCE5} %{buildroot}/etc/php-fpm.conf
 
 
 %post
@@ -122,6 +125,8 @@ exit 0
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/php.ini
 %config(noreplace) %{_sysconfdir}/php-cli.ini
+%config(noreplace) %{_sysconfdir}/php-fpm.conf
+%dir %{_sysconfdir}/php.d
 /etc/rc.d/init.d/php-fpm
 /usr/local/bin/*
 /usr/local/etc/*
