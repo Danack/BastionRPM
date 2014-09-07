@@ -20,7 +20,7 @@ SOURCE0 : http://downloads.php.net/tyrael/php-5.6.0RC3.tar.gz
 SOURCE1:        php.ini
 SOURCE2:        php-cli.ini
 SOURCE3:        apcu-4.0.6.tgz
-SOURCE4:        yaml-1.1.0.tgz
+SOURCE4:        yaml-1.1.1.tgz
 SOURCE5:        php-fpm.conf
 
 URL: http://php.net/
@@ -32,7 +32,6 @@ URL: http://php.net/
 %{summary}
 
 %prep
-
 %setup -q -n php-%{version}
 #-T switch disables the automatic unpacking of the archive. -D switch tells the %setup  
 #command not to delete the directory before unpacking and -a switch tells the %setup 
@@ -40,10 +39,11 @@ URL: http://php.net/
 %setup -T -D -a 3 -n php-%{version}
 mv apcu-4.0.6 ext/apcu
 %setup -T -D -a 4 -n php-%{version}
-mv yaml-1.1.0 ext/yaml
+mv yaml-1.1.1 ext/yaml
 
 %build
 mkdir -p  %{buildroot}
+rm configure
 ./buildconf --force
 ./configure  \
                 --disable-cgi \
@@ -52,6 +52,7 @@ mkdir -p  %{buildroot}
                 --disable-xmlreader \
                 --disable-xmlwriter \
                 --disable-xml \
+                --enable-apcu \
                 --enable-fpm \
                 --enable-intl \
                 --enable-json \
@@ -63,7 +64,6 @@ mkdir -p  %{buildroot}
                 --enable-sysvsem \
                 --enable-sysvshm \
                 --enable-zip \
-                --with-apcu \
                 --with-bz2 \
                 --with-config-file-path=/etc \
                 --with-config-file-scan-dir=/etc/php.d \
@@ -95,11 +95,12 @@ install -Dp -m0755 sapi/fpm/init.d.php-fpm.in %{buildroot}%{_initrddir}/php-fpm
 cp %{SOURCE1} %{buildroot}/etc/php.ini
 cp %{SOURCE2} %{buildroot}/etc/php-cli.ini
 cp %{SOURCE5} %{buildroot}/etc/php-fpm.conf
+mkdir -p %{buildroot}%{_sysconfdir}/php.d
 
 
 %post
-%/sbin/chkconfig --add php-fpm
-%/sbin/chkconfig --level 2345 php-fpm on
+/sbin/chkconfig --add php-fpm
+/sbin/chkconfig --level 2345 php-fpm on
 
 
 %clean
