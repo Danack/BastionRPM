@@ -1,0 +1,1262 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "990e684b924d7727892970a9b92135b3",
+    "packages": [
+        {
+            "name": "aws/aws-sdk-php",
+            "version": "2.5.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/aws/aws-sdk-php.git",
+                "reference": "dd8f78b8abde74245578dbfb930c29efff20f25a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/dd8f78b8abde74245578dbfb930c29efff20f25a",
+                "reference": "dd8f78b8abde74245578dbfb930c29efff20f25a",
+                "shasum": ""
+            },
+            "require": {
+                "guzzle/guzzle": ">=3.7.0,<3.9.0",
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "doctrine/cache": "~1.0",
+                "ext-openssl": "*",
+                "monolog/monolog": "1.4.*",
+                "phpunit/phpunit": "3.7.*",
+                "symfony/class-loader": "2.*",
+                "symfony/yaml": "2.*"
+            },
+            "suggest": {
+                "doctrine/cache": "Adds support for caching of credentials and responses",
+                "ext-apc": "Allows service description opcode caching, request and response caching, and credentials caching",
+                "ext-openssl": "Allows working with CloudFront private distributions and verifying received SNS messages",
+                "monolog/monolog": "Adds support for logging HTTP requests and responses",
+                "symfony/yaml": "Eases the ability to write manifests for creating jobs in AWS Import/Export"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.5.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Aws": "src/"
+                }
+            },
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Amazon Web Services",
+                    "homepage": "http://aws.amazon.com"
+                }
+            ],
+            "description": "AWS SDK for PHP - Use Amazon Web Services in your PHP project",
+            "homepage": "http://aws.amazon.com/sdkforphp",
+            "keywords": [
+                "amazon",
+                "aws",
+                "cloud",
+                "dynamodb",
+                "ec2",
+                "glacier",
+                "s3",
+                "sdk"
+            ],
+            "support": {
+                "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
+                "issues": "https://github.com/aws/aws-sdk-php/issues",
+                "source": "https://github.com/aws/aws-sdk-php/tree/2.5.4"
+            },
+            "time": "2014-03-20 20:01:49"
+        },
+        {
+            "name": "bagder/ca-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bagder/ca-bundle",
+                "reference": "origin/master"
+            },
+            "type": "library",
+            "time": "2014-08-13 21:50:13"
+        },
+        {
+            "name": "composer/composer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Danack/composer.git",
+                "reference": "e0051a465206489fd67c9e11e8e9b5b2c1701c49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Danack/composer/zipball/e0051a465206489fd67c9e11e8e9b5b2c1701c49",
+                "reference": "e0051a465206489fd67c9e11e8e9b5b2c1701c49",
+                "shasum": ""
+            },
+            "require": {
+                "justinrainbow/json-schema": "1.1.*",
+                "php": ">=5.3.2",
+                "seld/jsonlint": "1.*",
+                "symfony/console": "~2.3",
+                "symfony/finder": "~2.2",
+                "symfony/process": "~2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~3.7.10"
+            },
+            "suggest": {
+                "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
+                "ext-zip": "Enabling the zip extension allows you to unzip archives, and allows gzip compression of all internet traffic"
+            },
+            "bin": [
+                "bin/composer"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "Dependency Manager",
+            "homepage": "http://getcomposer.org/",
+            "keywords": [
+                "autoload",
+                "dependency",
+                "package"
+            ],
+            "support": {
+                "irc": "irc://irc.freenode.org/composer",
+                "issues": "https://github.com/composer/composer/issues",
+                "source": "https://github.com/Danack/composer/tree/master"
+            },
+            "time": "2013-08-18 21:03:48"
+        },
+        {
+            "name": "composer/satis",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/satis.git",
+                "reference": "18ba0079f3b840b89446d3e6c832442125db8f40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/satis/zipball/18ba0079f3b840b89446d3e6c832442125db8f40",
+                "reference": "18ba0079f3b840b89446d3e6c832442125db8f40",
+                "shasum": ""
+            },
+            "require": {
+                "composer/composer": "1.0.*@dev",
+                "php": ">=5.3.2",
+                "symfony/console": "~2.1",
+                "twig/twig": "~1.7"
+            },
+            "bin": [
+                "bin/satis"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Composer\\Satis": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                }
+            ],
+            "description": "Simple Repository Generator",
+            "homepage": "https://github.com/composer/satis",
+            "keywords": [
+                "generator",
+                "package",
+                "repository"
+            ],
+            "support": {
+                "source": "https://github.com/composer/satis/tree/master",
+                "issues": "https://github.com/composer/satis/issues"
+            },
+            "time": "2014-06-29 10:19:34"
+        },
+        {
+            "name": "danack/artaxservicebuilder",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Danack/ArtaxServiceBuilder.git",
+                "reference": "dacfbe86d5a3bc721413c04a375421431008e4d0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Danack/ArtaxServiceBuilder/zipball/dacfbe86d5a3bc721413c04a375421431008e4d0",
+                "reference": "dacfbe86d5a3bc721413c04a375421431008e4d0",
+                "shasum": ""
+            },
+            "require": {
+                "danack/danack-code": ">=2.4.4"
+            },
+            "require-dev": {
+                "danack/auryn": "~0.9.5",
+                "fzaninotto/faker": "*",
+                "mockery/mockery": "0.9.1",
+                "phpunit/phpunit": "4.1.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ArtaxServiceBuilder": "src/"
+                }
+            },
+            "support": {
+                "source": "https://github.com/Danack/ArtaxServiceBuilder/tree/0.1.2",
+                "issues": "https://github.com/Danack/ArtaxServiceBuilder/issues"
+            },
+            "time": "2014-08-06 11:35:00"
+        },
+        {
+            "name": "danack/bastion",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Danack/Bastion.git",
+                "reference": "2a172046476101b551742f5feb99d2da09aa2866"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Danack/Bastion/zipball/2a172046476101b551742f5feb99d2da09aa2866",
+                "reference": "2a172046476101b551742f5feb99d2da09aa2866",
+                "shasum": ""
+            },
+            "require": {
+                "aws/aws-sdk-php": "2.5.*",
+                "bagder/ca-bundle": "dev-master",
+                "composer/composer": "dev-master as 1.0.0",
+                "composer/satis": "dev-master",
+                "danack/danack-code": ">=2.4.4",
+                "danack/githubartaxservice": "~0.1.2",
+                "maximebf/consolekit": "1.0.3",
+                "php": ">=5.3.2",
+                "rdlowrey/artax": "dev-dev as 0.7.2",
+                "rdlowrey/auryn": ">=0.13.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Bastion": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dan Ackroyd",
+                    "email": "Danack@basereality.com"
+                }
+            ],
+            "description": "A satis-factory.",
+            "keywords": [
+                "archiver",
+                "library",
+                "satis"
+            ],
+            "support": {
+                "source": "https://github.com/Danack/Bastion/tree/0.0.2",
+                "issues": "https://github.com/Danack/Bastion/issues"
+            },
+            "time": "2014-08-14 13:20:24"
+        },
+        {
+            "name": "danack/danack-code",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Danack/DanackCode.git",
+                "reference": "b82c83aa61cfbdf236f86ae0874cfc7423465dd9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Danack/DanackCode/zipball/b82c83aa61cfbdf236f86ae0874cfc7423465dd9",
+                "reference": "b82c83aa61cfbdf236f86ae0874cfc7423465dd9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.23"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Danack\\Code\\": ""
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "provides facilities to generate arbitrary code using an object oriented interface",
+            "keywords": [
+                "code",
+                "zf2"
+            ],
+            "support": {
+                "source": "https://github.com/Danack/DanackCode/tree/2.4.4",
+                "issues": "https://github.com/Danack/DanackCode/issues"
+            },
+            "time": "2014-07-27 14:31:53"
+        },
+        {
+            "name": "danack/githubartaxservice",
+            "version": "0.1.2",
+            "source": {
+                "type": "git",
+                "url": "/documents/projects/github/GithubArtaxService",
+                "reference": "bc90ec09c7acfed6827f852aa7f1dc6d767f7aa0"
+            },
+            "require": {
+                "danack/artaxservicebuilder": "~0.1.1",
+                "danack/danack-code": ">=2.4.3"
+            },
+            "require-dev": {
+                "danack/auryn": "~0.9.5",
+                "phpunit/phpunit": "4.1.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "GithubService": "lib/"
+                }
+            },
+            "time": "2014-08-04 10:57:39"
+        },
+        {
+            "name": "daverandom/addr",
+            "version": "0.2.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DaveRandom/Addr.git",
+                "reference": "c90bea0e4482844631258c1fdc315cea4b10565d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DaveRandom/Addr/zipball/c90bea0e4482844631258c1fdc315cea4b10565d",
+                "reference": "c90bea0e4482844631258c1fdc315cea4b10565d",
+                "shasum": ""
+            },
+            "require": {
+                "daverandom/libdns": "~0.2.1",
+                "php": ">=5.4.0",
+                "rdlowrey/alert": "~0.10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Addr\\": "lib/Addr/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Wright",
+                    "email": "addr@daverandom.com",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Asynchronous DNS resolver using Alert",
+            "homepage": "https://github.com/DaveRandom/Addr",
+            "keywords": [
+                "async",
+                "client",
+                "dns",
+                "resolve"
+            ],
+            "support": {
+                "source": "https://github.com/DaveRandom/Addr/tree/0.2",
+                "issues": "https://github.com/DaveRandom/Addr/issues"
+            },
+            "time": "2014-08-05 21:41:32"
+        },
+        {
+            "name": "daverandom/libdns",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/daverandom/libdns.git",
+                "reference": "f94f92f3fa8b2776ff2593c87d93d87480efeb73"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/daverandom/libdns/zipball/f94f92f3fa8b2776ff2593c87d93d87480efeb73",
+                "reference": "f94f92f3fa8b2776ff2593c87d93d87480efeb73",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "LibDNS": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "DNS protocol implementation written in pure PHP",
+            "keywords": [
+                "dns"
+            ],
+            "support": {
+                "issues": "https://github.com/DaveRandom/LibDNS/issues",
+                "source": "https://github.com/daverandom/libdns/tree/v0.2.1"
+            },
+            "time": "2013-11-28 15:57:15"
+        },
+        {
+            "name": "guzzle/guzzle",
+            "version": "v3.8.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/guzzle/guzzle3.git",
+                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle3/zipball/4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+                "reference": "4de0618a01b34aa1c8c33a3f13f396dcd3882eba",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.3",
+                "symfony/event-dispatcher": ">=2.1"
+            },
+            "replace": {
+                "guzzle/batch": "self.version",
+                "guzzle/cache": "self.version",
+                "guzzle/common": "self.version",
+                "guzzle/http": "self.version",
+                "guzzle/inflection": "self.version",
+                "guzzle/iterator": "self.version",
+                "guzzle/log": "self.version",
+                "guzzle/parser": "self.version",
+                "guzzle/plugin": "self.version",
+                "guzzle/plugin-async": "self.version",
+                "guzzle/plugin-backoff": "self.version",
+                "guzzle/plugin-cache": "self.version",
+                "guzzle/plugin-cookie": "self.version",
+                "guzzle/plugin-curlauth": "self.version",
+                "guzzle/plugin-error-response": "self.version",
+                "guzzle/plugin-history": "self.version",
+                "guzzle/plugin-log": "self.version",
+                "guzzle/plugin-md5": "self.version",
+                "guzzle/plugin-mock": "self.version",
+                "guzzle/plugin-oauth": "self.version",
+                "guzzle/service": "self.version",
+                "guzzle/stream": "self.version"
+            },
+            "require-dev": {
+                "doctrine/cache": "*",
+                "monolog/monolog": "1.*",
+                "phpunit/phpunit": "3.7.*",
+                "psr/log": "1.0.*",
+                "symfony/class-loader": "*",
+                "zendframework/zend-cache": "<2.3",
+                "zendframework/zend-log": "<2.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Guzzle": "src/",
+                    "Guzzle\\Tests": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Guzzle Community",
+                    "homepage": "https://github.com/guzzle/guzzle/contributors"
+                }
+            ],
+            "description": "Guzzle is a PHP HTTP client library and framework for building RESTful web service clients",
+            "homepage": "http://guzzlephp.org/",
+            "keywords": [
+                "HTTP client",
+                "client",
+                "curl",
+                "framework",
+                "http",
+                "rest",
+                "web service"
+            ],
+            "support": {
+                "source": "https://github.com/guzzle/guzzle3/tree/v3.8.1",
+                "issues": "https://github.com/guzzle/guzzle3/issues"
+            },
+            "time": "2014-01-28 22:29:15"
+        },
+        {
+            "name": "justinrainbow/json-schema",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/justinrainbow/json-schema.git",
+                "reference": "05ff6d8d79fe3ad190b0663d80d3f9deee79416c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/justinrainbow/json-schema/zipball/05ff6d8d79fe3ad190b0663d80d3f9deee79416c",
+                "reference": "05ff6d8d79fe3ad190b0663d80d3f9deee79416c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JsonSchema": "src/"
+                }
+            },
+            "license": [
+                "NewBSD"
+            ],
+            "authors": [
+                {
+                    "name": "Bruno Prieto Reis",
+                    "email": "bruno.p.reis@gmail.com"
+                },
+                {
+                    "name": "Justin Rainbow",
+                    "email": "justin.rainbow@gmail.com"
+                },
+                {
+                    "name": "Igor Wiedler",
+                    "email": "igor@wiedler.ch"
+                },
+                {
+                    "name": "Robert Schönthal",
+                    "email": "seroscho@googlemail.com"
+                }
+            ],
+            "description": "A library to validate a json schema.",
+            "homepage": "https://github.com/justinrainbow/json-schema",
+            "keywords": [
+                "json",
+                "schema"
+            ],
+            "support": {
+                "source": "https://github.com/justinrainbow/json-schema/tree/v1.1.0",
+                "issues": "https://github.com/justinrainbow/json-schema/issues"
+            },
+            "time": "2012-01-03 00:33:17"
+        },
+        {
+            "name": "maximebf/consolekit",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/maximebf/ConsoleKit.git",
+                "reference": "c46403e2cf98e8413168c523bdbb7c13a386abe5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/maximebf/ConsoleKit/zipball/c46403e2cf98e8413168c523bdbb7c13a386abe5",
+                "reference": "c46403e2cf98e8413168c523bdbb7c13a386abe5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ConsoleKit": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Maxime Bouroumeau-Fuseau",
+                    "email": "maxime.bouroumeau@gmail.com",
+                    "homepage": "http://maximebf.com"
+                }
+            ],
+            "description": "Library to create command line utilities",
+            "homepage": "https://github.com/maximebf/ConsoleKit",
+            "keywords": [
+                "cli",
+                "commands",
+                "console",
+                "shell"
+            ],
+            "support": {
+                "source": "https://github.com/maximebf/ConsoleKit/tree/1.0.3",
+                "issues": "https://github.com/maximebf/ConsoleKit/issues"
+            },
+            "time": "2013-01-01 16:03:55"
+        },
+        {
+            "name": "rdlowrey/acesync",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/acesync.git",
+                "reference": "2283ab53b5af78e6aad48cf46ce9d9847ae37d51"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/acesync/zipball/2283ab53b5af78e6aad48cf46ce9d9847ae37d51",
+                "reference": "2283ab53b5af78e6aad48cf46ce9d9847ae37d51",
+                "shasum": ""
+            },
+            "require": {
+                "bagder/ca-bundle": "dev-master",
+                "daverandom/addr": "~0.2.0",
+                "php": ">=5.4.0",
+                "rdlowrey/after": "~0.2.0",
+                "rdlowrey/alert": "~0.10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Acesync\\": "lib/"
+                },
+                "files": [
+                    "lib/functions.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@gmail.com",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Non-blocking TCP socket connection/encryption tools",
+            "homepage": "https://github.com/rdlowrey/Acesync",
+            "keywords": [
+                "async",
+                "encryption",
+                "non-blocking",
+                "sockets",
+                "tcp",
+                "tls"
+            ],
+            "support": {
+                "source": "https://github.com/rdlowrey/acesync/tree/v0.2.4",
+                "issues": "https://github.com/rdlowrey/acesync/issues"
+            },
+            "time": "2014-08-11 21:35:43"
+        },
+        {
+            "name": "rdlowrey/after",
+            "version": "v0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/after.git",
+                "reference": "8858aab3370778eafa8500c34efee4428e1864d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/after/zipball/8858aab3370778eafa8500c34efee4428e1864d3",
+                "reference": "8858aab3370778eafa8500c34efee4428e1864d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "rdlowrey/alert": "~0.10.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "After\\": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@php.net",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Simple PHP concurrency primitives",
+            "homepage": "https://github.com/rdlowrey/after",
+            "keywords": [
+                "async",
+                "future",
+                "promise"
+            ],
+            "support": {
+                "source": "https://github.com/rdlowrey/after/tree/v0.2.1",
+                "issues": "https://github.com/rdlowrey/after/issues"
+            },
+            "time": "2014-08-03 23:46:42"
+        },
+        {
+            "name": "rdlowrey/alert",
+            "version": "v0.10.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/alert.git",
+                "reference": "1807f340419f22c41728969d39c8af824f0535e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/alert/zipball/1807f340419f22c41728969d39c8af824f0535e7",
+                "reference": "1807f340419f22c41728969d39c8af824f0535e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Alert\\": "lib/"
+                },
+                "files": [
+                    "lib/functions.php"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@php.net",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Event loops and stream IO reactors for non-blocking PHP applications",
+            "homepage": "https://github.com/rdlowrey/alert",
+            "keywords": [
+                "async",
+                "libevent",
+                "libuv",
+                "non-blocking"
+            ],
+            "support": {
+                "source": "https://github.com/rdlowrey/alert/tree/v0.10.2",
+                "issues": "https://github.com/rdlowrey/alert/issues"
+            },
+            "time": "2014-08-02 06:21:32"
+        },
+        {
+            "name": "rdlowrey/artax",
+            "version": "dev-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/artax.git",
+                "reference": "d47d34a352b6dfca038e7a99c1e59e5d217e04e0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/artax/zipball/d47d34a352b6dfca038e7a99c1e59e5d217e04e0",
+                "reference": "d47d34a352b6dfca038e7a99c1e59e5d217e04e0",
+                "shasum": ""
+            },
+            "require": {
+                "bagder/ca-bundle": "dev-master",
+                "php": ">=5.4.0",
+                "rdlowrey/acesync": "dev-master",
+                "rdlowrey/after": "~0.2.0",
+                "rdlowrey/alert": "0.10.2 as 0.9.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Artax\\": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@gmail.com",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Non-blocking HTTP/1.1 client",
+            "homepage": "https://github.com/rdlowrey/Artax",
+            "keywords": [
+                "async",
+                "client",
+                "http",
+                "non-blocking",
+                "parallel",
+                "rest"
+            ],
+            "support": {
+                "source": "https://github.com/rdlowrey/artax/tree/dev",
+                "issues": "https://github.com/rdlowrey/artax/issues"
+            },
+            "time": "2014-08-05 17:21:35"
+        },
+        {
+            "name": "rdlowrey/auryn",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/auryn.git",
+                "reference": "4a30ef91f159d81b6cf1f130fc4db12c8f185040"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/auryn/zipball/4a30ef91f159d81b6cf1f130fc4db12c8f185040",
+                "reference": "4a30ef91f159d81b6cf1f130fc4db12c8f185040",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Auryn\\": "lib/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@gmail.com",
+                    "role": "Creator / Main Developer"
+                },
+                {
+                    "name": "Levi Morrison",
+                    "email": "levim@php.net",
+                    "homepage": "http://morrisonlevi.github.com/",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Dan Ackroyd",
+                    "email": "Danack@basereality.com",
+                    "homepage": "http://www.basereality.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Auryn is a dependency injector for bootstrapping object-oriented PHP applications.",
+            "homepage": "https://github.com/rdlowrey/Auryn",
+            "keywords": [
+                "dependency injection",
+                "dic",
+                "ioc"
+            ],
+            "support": {
+                "source": "https://github.com/rdlowrey/auryn/tree/v0.14.0",
+                "issues": "https://github.com/rdlowrey/auryn/issues"
+            },
+            "time": "2014-08-11 13:28:33"
+        },
+        {
+            "name": "seld/jsonlint",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Seldaek/jsonlint.git",
+                "reference": "9cae56dbe34f4392e7d0f559474df33749a39f8d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Seldaek/jsonlint/zipball/9cae56dbe34f4392e7d0f559474df33749a39f8d",
+                "reference": "9cae56dbe34f4392e7d0f559474df33749a39f8d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "bin/jsonlint"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Seld\\JsonLint\\": "src/Seld/JsonLint/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                }
+            ],
+            "description": "JSON Linter",
+            "keywords": [
+                "json",
+                "linter",
+                "parser",
+                "validator"
+            ],
+            "support": {
+                "source": "https://github.com/Seldaek/jsonlint/tree/1.2.0",
+                "issues": "https://github.com/Seldaek/jsonlint/issues"
+            },
+            "time": "2014-07-20 17:36:11"
+        },
+        {
+            "name": "symfony/console",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Console",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/console.git",
+                "reference": "0c91f3355f251dc2ac15d9f9c5e04c014c9b729e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/0c91f3355f251dc2ac15d9f9c5e04c014c9b729e",
+                "reference": "0c91f3355f251dc2ac15d9f9c5e04c014c9b729e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/event-dispatcher": "~2.1",
+                "symfony/process": "~2.1"
+            },
+            "suggest": {
+                "psr/log": "For using the console logger",
+                "symfony/event-dispatcher": "",
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Console\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Console Component",
+            "homepage": "http://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/console/tree/master"
+            },
+            "time": "2014-08-08 14:32:04"
+        },
+        {
+            "name": "symfony/event-dispatcher",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/EventDispatcher",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/EventDispatcher.git",
+                "reference": "68ab3c3f50eae2b152075da722204d4de67f596f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/EventDispatcher/zipball/68ab3c3f50eae2b152075da722204d4de67f596f",
+                "reference": "68ab3c3f50eae2b152075da722204d4de67f596f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "psr/log": "~1.0",
+                "symfony/config": "~2.0",
+                "symfony/dependency-injection": "~2.0",
+                "symfony/stopwatch": "~2.2"
+            },
+            "suggest": {
+                "symfony/dependency-injection": "",
+                "symfony/http-kernel": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\EventDispatcher\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony EventDispatcher Component",
+            "homepage": "http://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/EventDispatcher/tree/master"
+            },
+            "time": "2014-07-28 13:20:53"
+        },
+        {
+            "name": "symfony/finder",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Finder",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Finder.git",
+                "reference": "3329a4cb19075326ef2cc2abe848aa21b84905cf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Finder/zipball/3329a4cb19075326ef2cc2abe848aa21b84905cf",
+                "reference": "3329a4cb19075326ef2cc2abe848aa21b84905cf",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Finder\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Finder Component",
+            "homepage": "http://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/Finder/tree/master"
+            },
+            "time": "2014-07-28 13:20:53"
+        },
+        {
+            "name": "symfony/process",
+            "version": "dev-master",
+            "target-dir": "Symfony/Component/Process",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Process.git",
+                "reference": "b21c57ca5656ca52665e2dbd851be44442175be9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Process/zipball/b21c57ca5656ca52665e2dbd851be44442175be9",
+                "reference": "b21c57ca5656ca52665e2dbd851be44442175be9",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.6-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Process\\": ""
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Process Component",
+            "homepage": "http://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/Process/tree/master"
+            },
+            "time": "2014-08-05 09:07:51"
+        },
+        {
+            "name": "twig/twig",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fabpot/Twig.git",
+                "reference": "e2d2a250d963dd5bba4ad23fc01c7282fc042946"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fabpot/Twig/zipball/e2d2a250d963dd5bba4ad23fc01c7282fc042946",
+                "reference": "e2d2a250d963dd5bba4ad23fc01c7282fc042946",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.16-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Twig_": "lib/"
+                }
+            },
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Twig Team",
+                    "homepage": "https://github.com/fabpot/Twig/graphs/contributors",
+                    "role": "Contributors"
+                },
+                {
+                    "name": "Armin Ronacher",
+                    "email": "armin.ronacher@active-4.com",
+                    "role": "Project Founder"
+                }
+            ],
+            "description": "Twig, the flexible, fast, and secure template language for PHP",
+            "homepage": "http://twig.sensiolabs.org",
+            "keywords": [
+                "templating"
+            ],
+            "support": {
+                "forum": "https://groups.google.com/forum/#!forum/twig-users",
+                "source": "https://github.com/fabpot/Twig/tree/master",
+                "issues": "https://github.com/fabpot/Twig/issues"
+            },
+            "time": "2014-08-06 06:46:32"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "dev",
+    "stability-flags": [
+
+    ],
+    "platform": [
+
+    ],
+    "platform-dev": [
+
+    ]
+}
