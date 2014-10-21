@@ -1,12 +1,9 @@
 
 
-#packages/elementtree-1.2.6-20050316.tar.gz
-#packages/supervisor-3.0.tar.gz
-
-#python setup.py bdist_rpm
 
 startDir=$(pwd)
 
+. ./setupDirectory.sh
 
 
 files=( )
@@ -16,7 +13,7 @@ files+=("docutils-0.12")
 files+=("elementtree-1.2.6-20050316")
 files+=("Jinja2-2.7.3")
 files+=("MarkupSafe-0.23")
-files+=("meld3-0.6.5" "supervisor-3.0")
+files+=("meld3-0.6.5")
 files+=("Pygments-1.6")
 files+=("pywatch-0.4")
 files+=("pytz-2014.4")
@@ -24,6 +21,9 @@ files+=("setuptools-3.8.1")
 files+=("six-1.7.3")
 files+=("snowballstemmer-1.2.0")
 files+=("sphinx-bootstrap-theme-master")
+
+files=( )
+files+=("supervisor-3.0")
 
 
 
@@ -37,35 +37,50 @@ do
    cd /tmp/$file
    tar -zxvf $file.tar.gz
    cd $file
-   
    cat <<EOF > clean.txt
-   #shamoan MOFO
 EOF
 
-    #python setup.py install --single-version-externally-managed -O1 --root=\$RPM_BUILD_ROOT --record=INSTALLED_FILES
 
+    #Prepare an install script
     cat <<EOF > install.txt
-
     python setup.py install -O1 --root=\$RPM_BUILD_ROOT --record=INSTALLED_FILES
-    
     sed -i -e 's/.*/"\/\0"/' INSTALLED_FILES
 EOF
 
-    
+    #SupervisorD needs an entry in the sysconfdir - aka /etc/
+    #for most systems.
     if [[ $file == "supervisor-3.0" ]]
     then
+
     cat <<EOF >> install.txt
 %{__mkdir} -p \$RPM_BUILD_ROOT%{_sysconfdir}/supervisor.d
 echo '%dir %{_sysconfdir}/supervisor.d' >> INSTALLED_FILES
-#cp INSTALLED_FILES /tmp/INSTALLED_FILES_BACKUP
+
+%{__mkdir} -p \$RPM_BUILD_ROOT/var/log/supervisor
+echo '%dir /var/log/supervisor' >> INSTALLED_FILES
+
+cp ${startDir}/../packages/python/supervisord.conf \$RPM_BUILD_ROOT/etc/supervisord.conf
+chmod 660 \$RPM_BUILD_ROOT/etc/supervisord.conf
+echo '/etc/supervisord.conf' >> INSTALLED_FILES
+
+%{__mkdir} -p \$RPM_BUILD_ROOT/etc/init.d
+echo '%dir %{_sysconfdir}/init.d/supervisord' >> INSTALLED_FILES
+cp ${startDir}/../packages/python/supervisord.init.d \$RPM_BUILD_ROOT/etc/init.d/supervisord
+chmod 766 \$RPM_BUILD_ROOT/etc/init.d/supervisord
+echo '/etc/init.d/supervisord' >> INSTALLED_FILES
+
+%{__mkdir} -p \$RPM_BUILD_ROOT/etc/logrotate.d
+cp ${startDir}/../packages/python/supervisord.logrotate \$RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/supervisord
+chmod 644 \$RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/supervisord
+echo '/etc/logrotate.d/supervisord' >> INSTALLED_FILES
+
 EOF
+
+#TODO - I can copy to the sources dir first and then have a slightly better install process?
     
 fi
 
-    #python setup.py bdist_rpm --install-script=install.txt --clean-script clean.txt
     python setup.py bdist_rpm --install-script=install.txt
-    
-    #python setup.py bdist_rpm
     
     rc=$?
     if [[ $rc != 0 ]] ; then
@@ -74,7 +89,7 @@ fi
     fi
 
 
-
+    #copy the built files to the repo directory
     cp dist/*.x86_64.rpm $startDir/../repo/RPMS/x86_64
     cp dist/*.noarch.rpm $startDir/../repo/RPMS/noarch
     cp dist/*.src.rpm $startDir/../repo/SRPMS/noarch

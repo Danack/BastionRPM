@@ -24,7 +24,9 @@ package "fftw-devel"
 package "rpm-build"
 package "pcre-devel"
 package "createrepo"
-package "ImageMagick-devel"
+package "libyaml-devel"
+
+#package "ImageMagick-devel"
 
 #package "libgearman"
 #package "libgearman-devel"
@@ -32,4 +34,20 @@ package "ImageMagick-devel"
 #package "java-1.6.0-openjdk"
 #package "phpcustom"
 #package "imagick"
+
+#Sphinx packages
+#package "babel"
+#package "setuptools"
+#package "elementtree"
+#package "meld3"
+#package "Sphinx"
+#package "snowballstemmer"
+#package "docutils"
+#package "Pygments"
+#package "Jinja2"
+#package "six"
+#package "pytz"
+#package "MarkupSafe"
+
+
 

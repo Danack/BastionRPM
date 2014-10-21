@@ -1,4 +1,4 @@
-RPM_DIR="$HOME/rpmbuild"
+RPM_DIR="../rpmbuild"
 rm -rf $RPM_DIR
 
 mkdir -p ../repo/RPMS/x86_64

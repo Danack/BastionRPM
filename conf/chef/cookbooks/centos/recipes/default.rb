@@ -1,4 +1,5 @@
 
+#package "epel-release"
 
 execute 'centos_disable_iptables' do
     cwd "/tmp"
