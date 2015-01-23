@@ -1,17 +1,22 @@
-%global VERSION  6.8.9
+%global VERSION  6.9.0
 %global MAJOR_VERSION  6
-%global Patchlevel  8
+%global Patchlevel  4
 
-Name:           ImageMagick
+%define date %(date +%%Y_%%m_%%d)
+
+%define packagename ImageMagick-%{date}
+
+Name:           %{packagename}
 Version:        %{VERSION}
 Release:        %{Patchlevel}
 Summary:        Use ImageMagick to convert, edit, or compose bitmap images in a variety of formats.  In addition resize, rotate, shear, distort and transform images.
 Group:          Applications/Multimedia
 License:        http://www.imagemagick.org/script/license.php
 Url:            http://www.imagemagick.org/
-Source0:        http://www.imagemagick.org/download/%{name}/%{name}-%{VERSION}-%{Patchlevel}.tar.gz
+Source0:        http://www.imagemagick.org/download/ImageMagick/ImageMagick-%{VERSION}-%{Patchlevel}.tar.gz
+Source1:        policy.xml        
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRoot:      %{_tmppath}/ImageMagick-%{version}-%{release}-root-%(%{__id_u} -n)
 #BuildRequires:  bzip2-devel, freetype-devel, libjpeg-devel, libpng-devel
 #BuildRequires:  libtiff-devel, giflib-devel, zlib-devel, perl-devel >= 5.8.1
 #BuildRequires:  ghostscript-devel, djvulibre-devel
@@ -59,7 +64,8 @@ approved by the OSI.
 %package devel
 Summary: Library links and header files for ImageMagick application development
 Group: Development/Libraries
-Requires: %{name} = %{version}-%{release}
+#Requires: ImageMagick = %{version}-%{release}
+Requires: %{packagename}
 Requires: libX11-devel, libXext-devel, libXt-devel
 Requires: ghostscript-devel
 Requires: bzip2-devel
@@ -89,16 +95,6 @@ Group: Applications/Multimedia
 This packages contains a shared libraries to use within other applications.
 
 
-%package djvu
-Summary: DjVu plugin for ImageMagick
-Group: Applications/Multimedia
-Requires: %{name} = %{version}-%{release}
-
-%description djvu
-This packages contains a plugin for ImageMagick which makes it possible to
-save and load DjvU files from ImageMagick and libMagickCore using applications.
-
-
 %package doc
 Summary: ImageMagick HTML documentation
 Group: Documentation
@@ -111,61 +107,18 @@ Note this documentation can also be found on the ImageMagick website:
 http://www.imagemagick.org/.
 
 
-%package perl
-Summary: ImageMagick perl bindings
-Group: System Environment/Libraries
-Requires: %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
-
-
-%description perl
-Perl bindings to ImageMagick.
-
-Install ImageMagick-perl if you want to use any perl scripts that use
-ImageMagick.
-
-
-#%package c++
-#Summary: ImageMagick Magick++ library (C++ bindings)
-#Group: System Environment/Libraries
-#Requires: %{name} = %{version}-%{release}
-#
-#%description c++
-#This package contains the Magick++ library, a C++ binding to the ImageMagick
-##graphics manipulation library.
-#
-#Install ImageMagick-c++ if you want to use any applications that use Magick++.
-
-
-#%package c++-devel
-#Summary: C++ bindings for the ImageMagick library
-#Group: Development/Libraries
-#Requires: %{name}-c++ = %{version}-%{release}
-#Requires: %{name}-devel = %{version}-%{release}
-#
-#%description c++-devel
-#ImageMagick-devel contains the static libraries and header files you'll
-#need to develop ImageMagick applications using the Magick++ C++ bindings.
-#ImageMagick is an image manipulation program.
-#
-#If you want to create applications that will use Magick++ code
-#or APIs, you'll need to install ImageMagick-c++-devel, ImageMagick-devel and
-#ImageMagick.
-#
-#You don't need to install it if you just want to use ImageMagick, or if you
-#want to develop/compile applications using the ImageMagick C interface,
-#however.
-
-
 %prep
-%setup -q -n %{name}-%{VERSION}-%{Patchlevel}
+%setup -q -n ImageMagick-%{VERSION}-%{Patchlevel}
 sed -i 's/libltdl.la/libltdl.so/g' configure
 iconv -f ISO-8859-1 -t UTF-8 README.txt > README.txt.tmp
 touch -r README.txt README.txt.tmp
 mv README.txt.tmp README.txt
-# for %%doc
 mkdir Magick++/examples
 cp -p Magick++/demo/*.cpp Magick++/demo/*.miff Magick++/examples
+pwd
+cp %{SOURCE1} config/policy.xml
+
+rm -rf %{buildroot}
 
 %build
 #%configure --enable-shared \
@@ -187,46 +140,53 @@ cp -p Magick++/demo/*.cpp Magick++/demo/*.miff Magick++/examples
 #sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 # Do *NOT* use %%{?_smp_mflags}, this causes PerlMagick to be silently misbuild
 
+
+
+# --with-openexr
+# --with-jemalloc
+
+%configure --with-quantum-depth=32 \
+           --enable-hdri \
+           --with-magick-plus-plus=no \
+           --without-perl \
+           --disable-static \
+           --disable-docs \
+           --program-suffix=hdri32
+
+make install DESTDIR=%{buildroot} INSTALL="install -p"
+
+#--disable-openmp \
+
+#--exec-prefix=/usr/sbin \
+#/usr/sbin
+#--disable-openmp  \
+
 %configure --with-quantum-depth=16 \
            --with-magick-plus-plus=no \
-           --disable-static 
-
-make
+           --without-perl \
+           --disable-static \
+           --exec-prefix=/usr/sbin \
+           --disable-docs
+           
+make install DESTDIR=%{buildroot} INSTALL="install -p"
 
 
 %install
-rm -rf %{buildroot}
+# rm -rf %{buildroot}
 
-make install DESTDIR=%{buildroot} INSTALL="install -p"
-cp -a www/source %{buildroot}%{_datadir}/doc/%{name}-%{MAJOR_VERSION}
+#make install DESTDIR=%{buildroot} INSTALL="install -p"
+# cp -a www/source %{buildroot}%{_datadir}/doc/ImageMagick-%{MAJOR_VERSION}
 rm %{buildroot}%{_libdir}/*.la
 
-# fix weird perl Magick.so permissions
-#chmod 755 %{buildroot}%{perl_vendorarch}/auto/Image/Magick/*/*.so
-
-# perlmagick: fix perl path of demo files
-#%{__perl} -MExtUtils::MakeMaker -e 'MY->fixin(@ARGV)' PerlMagick/demo/*.pl
 
 # perlmagick: cleanup various perl tempfiles from the build which get installed
 find %{buildroot} -name "*.bs" |xargs rm -f
 find %{buildroot} -name ".packlist" |xargs rm -f
 #find %{buildroot} -name "perllocal.pod" |xargs rm -f
 
-# perlmagick: build files list
-#echo "%defattr(-,root,root,-)" > perl-pkg-files
-#find %{buildroot}/%{_libdir}/perl* -type f -print \
-#        | sed "s@^%{buildroot}@@g" > perl-pkg-files 
-#find %{buildroot}%{perl_vendorarch} -type d -print \
-#        | sed "s@^%{buildroot}@%dir @g" \
-#        | grep -v '^%dir %{perl_vendorarch}$' \
-#        | grep -v '/auto$' >> perl-pkg-files 
-#if [ -z perl-pkg-files ] ; then
-#    echo "ERROR: EMPTY FILE LIST"
-#    exit -1
-#fi
 
 %clean
-rm -rf %{buildroot}
+#rm -rf %{buildroot}
 
 %post libs -p /sbin/ldconfig
 
@@ -242,13 +202,13 @@ rm -rf %{buildroot}
 %doc README.txt LICENSE NOTICE AUTHORS.txt NEWS.txt
 %{_libdir}/libMagickCore*so*
 %{_libdir}/libMagickWand*so*
-%{_bindir}/[a-z]*
-%{_libdir}/%{name}-%{VERSION}
-%{_datadir}/%{name}-%{MAJOR_VERSION}
-%{_mandir}/man[145]/[a-z]*
-%{_mandir}/man1/%{name}.*
-#%exclude %{_libdir}/%{name}-%{VERSION}/modules-*/coders/djvu.*
-%{_sysconfdir}/%{name}-%{MAJOR_VERSION}
+%{_bindir}/*
+%{_libdir}/ImageMagick-%{VERSION}
+%{_datadir}/ImageMagick-%{MAJOR_VERSION}
+#%{_mandir}/man[145]/[a-z]*
+#%{_mandir}/man1/ImageMagick.*
+#%exclude %{_libdir}/ImageMagick-%{VERSION}/modules-*/coders/djvu.*
+%{_sysconfdir}/ImageMagick-%{MAJOR_VERSION}
 
 
 #%global incsuffixe -6
@@ -262,60 +222,39 @@ rm -rf %{buildroot}
 %{_libdir}/libMagickCore*.so.2*
 %{_libdir}/libMagickWand*.so.2*
 %{_libdir}/ImageMagick-%{VERSION}
-%{_datadir}/%{name}-%{MAJOR_VERSION}
-%{_sysconfdir}/%{name}-%{MAJOR_VERSION}
+%{_datadir}/ImageMagick-%{MAJOR_VERSION}
+%{_sysconfdir}/ImageMagick-%{MAJOR_VERSION}
 
 
 %files devel
 %defattr(-,root,root,-)
-%{_bindir}/MagickCore-config
-%{_bindir}/Magick-config
-%{_bindir}/MagickWand-config
-%{_bindir}/Wand-config
+%{_bindir}/MagickCore-config*
+%{_bindir}/Magick-config*
+%{_bindir}/MagickWand-config*
+%{_bindir}/Wand-config*
 %{_libdir}/libMagickCore*so*
 %{_libdir}/libMagickWand*so*
 %{_libdir}/pkgconfig/MagickCore*.pc
 %{_libdir}/pkgconfig/ImageMagick*.pc
 %{_libdir}/pkgconfig/MagickWand*.pc
 %{_libdir}/pkgconfig/Wand*.pc
-%dir %{_includedir}/%{name}-%{MAJOR_VERSION}
-%{_includedir}/%{name}-%{MAJOR_VERSION}/magick
-%{_includedir}/%{name}-%{MAJOR_VERSION}/wand
-%{_mandir}/man1/Magick-config.*
-%{_mandir}/man1/MagickCore-config.*
-%{_mandir}/man1/Wand-config.*
-%{_mandir}/man1/MagickWand-config.*
+%dir %{_includedir}/ImageMagick-%{MAJOR_VERSION}
+%{_includedir}/ImageMagick-%{MAJOR_VERSION}/magick
+%{_includedir}/ImageMagick-%{MAJOR_VERSION}/wand
+#%{_mandir}/man1/Magick-config.*
+#%{_mandir}/man1/MagickCore-config.*
+#%{_mandir}/man1/Wand-config.*
+#%{_mandir}/man1/MagickWand-config.*
 
-#%files djvu
-#%defattr(-,root,root,-)
-#%{_libdir}/%{name}-%{version}/modules-Q*/coders/djvu.*
 
-%files doc
-%defattr(-,root,root,-)
-%doc %{_datadir}/doc/%{name}-%{MAJOR_VERSION}
-%doc LICENSE
 
-#%files c++
-#%defattr(-,root,root,-)
-#%doc Magick++/AUTHORS Magick++/ChangeLog Magick++/NEWS Magick++/README
-#%doc www/Magick++/COPYING
-#%{_libdir}/libMagick++*so*
-#
-#%files c++-devel
-#%defattr(-,root,root,-)
-#%doc Magick++/examples
-#%{_bindir}/Magick++-config
-#%{_includedir}/%{name}-%{MAJOR_VERSION}/Magick++
-#%{_includedir}/%{name}-%{MAJOR_VERSION}/Magick++.h
-#%{_libdir}/libMagick++*so*
-#%{_libdir}/pkgconfig/Magick++*.pc
-#%{_libdir}/pkgconfig/ImageMagick++*.pc
-#%{_mandir}/man1/Magick++-config.*
 
-#%files perl -f perl-pkg-files
+
+
+#%files doc
 #%defattr(-,root,root,-)
-#%{_mandir}/man3/*
-#%doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
+#%doc %{_datadir}/doc/ImageMagick-%{MAJOR_VERSION}
+#%doc LICENSE
 
 
 %changelog

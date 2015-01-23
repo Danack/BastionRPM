@@ -15,18 +15,6 @@
             "packagist": false
         },
         {
-            "type": "package",
-            "package": {
-                "name": "bagder/ca-bundle",
-                "version": "dev-master",
-                "source": {
-                    "url": "https://github.com/bagder/ca-bundle",
-                    "type": "git",
-                    "reference": "origin/master"
-                }
-            }
-        },
-        {
             "type": "vcs",
             "url": "https://github.com/Danack/composer"
         },
@@ -56,7 +44,7 @@
         },
         {
              "type": "vcs",
-             "url": "https://github.com/rdlowrey/artax"
+             "url": "https://github.com/amphp/artax"
         },
         {
              "type": "vcs",

@@ -96,6 +96,9 @@ fi
 
 %post
 /sbin/chkconfig --add redis
+/sbin/chkconfig --level 2345 redis on
+/sbin/service redis start
+
 
 %clean
 ##%{__rm} -rf %{buildroot}

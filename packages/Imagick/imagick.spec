@@ -34,9 +34,9 @@ rm -rf %{buildroot}
 mkdir -p  %{buildroot}
 
 /usr/local/bin/phpize
-./configure --libdir=/usr/lib64 --with-php-config=/usr/local/bin/php-config --enable-imagick-version-name
+./configure --libdir=/usr/lib64 --with-php-config=/usr/local/bin/php-config
+# --enable-imagick-version-name
 make
-
 
 %install
 mkdir -p %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20131226/

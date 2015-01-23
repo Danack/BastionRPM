@@ -44,17 +44,20 @@ mv apcu-4.0.6 ext/apcu
 %setup -T -D -a 4 -n php-%{version}
 mv yaml-1.1.1 ext/yaml
 
+
+#  --enable-inline-optimization
+# --disable-debug \
+# --enable-libxml \
+
 %build
 mkdir -p  %{buildroot}
 rm configure
 ./buildconf --force
 ./configure  \
                 --disable-cgi \
-                --disable-debug \
                 --disable-rpath \
-                --disable-xmlreader \
-                --disable-xmlwriter \
-                --disable-xml \
+                --enable-xmlreader \
+                --enable-xmlwriter \
                 --enable-apcu \
                 --enable-fpm \
                 --enable-intl \
@@ -78,6 +81,7 @@ rm configure
                 --with-jpeg-dir=/usr/lib \
                 --without-mcrypt \
                 --with-png-dir=/usr/lib \
+                --enable-fd-setsize=8192 \
                 --with-pdo-mysql \
                 --with-yaml \
                 --with-zlib \
@@ -87,8 +91,8 @@ rm configure
                 --with-openssl \
                 --with-pcre-regex \
                 --without-pear \
-                --without-zlib \
                 --enable-maintainer-zts
+
 make -j2
 
 
@@ -107,13 +111,14 @@ mkdir -p %{buildroot}/var/run/php-fpm
 rm %{buildroot}%{_sysconfdir}/php-fpm.conf.default
 
 
-%post
-/sbin/chkconfig --add php-fpm
-/sbin/chkconfig --level 2345 php-fpm on
-
 
 %clean
  rm -rf %{buildroot}
+
+
+%post
+/sbin/chkconfig --add php-fpm
+/sbin/chkconfig --level 2345 php-fpm on
 
 
 %preun
