@@ -14,10 +14,12 @@ if [[ $rc != 0 ]] ; then
     exit $rc
 fi
 
-cp RPMS/x86_64/*.rpm $startDir/../repo/RPMS/x86_64/
 
-createrepo $startDir/../repo/SRPMS
-createrepo $startDir/../repo/RPMS/x86_64
+. ${startDir}/copyAndRepo.sh
+
+#cp RPMS/x86_64/*.rpm $startDir/../repo/RPMS/x86_64/
+#createrepo $startDir/../repo/SRPMS
+#createrepo $startDir/../repo/RPMS/x86_64
 
 
 

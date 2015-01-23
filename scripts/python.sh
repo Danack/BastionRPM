@@ -5,6 +5,10 @@ startDir=$(pwd)
 
 . ./setupDirectory.sh
 
+pythonTempDir=${startDir}/../temp/pythonBuild 
+
+mkdir -p ${pythonTempDir}
+
 
 files=( )
 files+=("Babel-1.3")
@@ -21,8 +25,6 @@ files+=("setuptools-3.8.1")
 files+=("six-1.7.3")
 files+=("snowballstemmer-1.2.0")
 files+=("sphinx-bootstrap-theme-master")
-
-files=( )
 files+=("supervisor-3.0")
 
 
@@ -87,18 +89,29 @@ fi
         echo "Failed to build rpm ${file}"
         exit $rc
     fi
+    
+    cp dist/*.rpm ${pythonTempDir}
 
-
-    #copy the built files to the repo directory
-    cp dist/*.x86_64.rpm $startDir/../repo/RPMS/x86_64
-    cp dist/*.noarch.rpm $startDir/../repo/RPMS/noarch
-    cp dist/*.src.rpm $startDir/../repo/SRPMS/noarch
 done
 
-cd $startDir
-createrepo $startDir/../repo/RPMS
-createrepo $startDir/../repo/RPMS/x86_64
+rpm --resign ${pythonTempDir}/*.rpm
+
+#copy the built files to the repo directory
+cp ${pythonTempDir}/*.x86_64.rpm $startDir/../repo/RPMS/x86_64
+cp ${pythonTempDir}/*.noarch.rpm $startDir/../repo/RPMS/noarch
+cp ${pythonTempDir}/*.src.rpm $startDir/../repo/SRPMS/noarch
+
+
+createrepo $startDir/../repo/SRPMS
 createrepo $startDir/../repo/RPMS/noarch
+createrepo $startDir/../repo/RPMS/x86_64
+
+#. ${startDir}/copyAndRepo.sh
+
+#cd $startDir
+#createrepo $startDir/../repo/RPMS
+#createrepo $startDir/../repo/RPMS/x86_64
+#createrepo $startDir/../repo/RPMS/noarch
 
 
 

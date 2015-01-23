@@ -1,7 +1,21 @@
 
 
+packages=( )
+packages+=("Babel-1.3")
 
-packages=( "ImageMagick" "nginx" "php" "xdebug" "imagick" "redis" "python" )
+
+packages+=("ImageMagick")
+packages+=("imagick")
+packages+=("libyaml")
+packages+=("nginx")
+packages+=("php")
+packages+=("python")
+packages+=("redis")
+packages+=("valgrind")
+packages+=("xdebug")
+packages+=("yuicompressor")
+
+
 for package in "${packages[@]}"
 do
    :

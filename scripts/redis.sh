@@ -9,11 +9,14 @@ cp ../packages/redis/* $RPM_DIR/SOURCES/
 cd $RPM_DIR
 rpmbuild --define "_topdir `pwd`" -ba SPECS/redis.spec
 
-cp RPMS/x86_64/* $startDir/../repo/RPMS/x86_64/
-cp SRPMS/*  $startDir/../repo/SRPMS/
+. ${startDir}/copyAndRepo.sh
 
-createrepo $startDir/../repo/SRPMS
-createrepo $startDir/../repo/RPMS/x86_64
+
+#cp RPMS/x86_64/* $startDir/../repo/RPMS/x86_64/
+#cp SRPMS/*  $startDir/../repo/SRPMS/
+
+#createrepo $startDir/../repo/SRPMS
+#createrepo $startDir/../repo/RPMS/x86_64
 
 
 
