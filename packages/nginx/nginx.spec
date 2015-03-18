@@ -30,6 +30,7 @@ Source2: nginx.init
 Source3: nginx.sysconf
 Source4: nginx.conf
 Source5: nginx-upstream-fair-master.tgz
+Source6: mime.types
 
 
 License: 2-clause BSD-like license
@@ -148,6 +149,8 @@ make %{?_smp_mflags}
 %{__rm} $RPM_BUILD_ROOT%{_sysconfdir}/nginx/nginx.conf
 %{__install} -m 644 -p %{SOURCE4} \
    $RPM_BUILD_ROOT%{_sysconfdir}/nginx/nginx.conf
+%{__install} -m 644 -p %{SOURCE6} \
+      $RPM_BUILD_ROOT%{_sysconfdir}/nginx/mime.types
 
 %{__mkdir} -p $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig
 %{__install} -m 644 -p %{SOURCE3} \

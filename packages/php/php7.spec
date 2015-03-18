@@ -7,18 +7,24 @@
 
 %define date %(date +%%Y_%%m_%%d) 
 
+
+
+
 Summary: Custom built PHP with APCU and other extensions
-Name: php-basereality-%{date}
+Name: php7-basereality-%{date}
 Provides: php
 Conflicts: php
-Version: 5.6.5
+Version: 7.0.0
 Release: 1
 License: None
 Group: Development/Tools
 
+BuildRoot: %{_tmppath}/php-src-master
+
+
 Requires: bzip2, libcurl, libxml2
 
-SOURCE0: http://php.net/get/php-5.6.5.tar.gz
+SOURCE0:        http://php.net/get/php-src-master.tar.gz
 SOURCE1:        php.ini
 SOURCE2:        php-cli.ini
 SOURCE3:        apcu-4.0.6.tgz
@@ -34,15 +40,16 @@ URL: http://php.net/
 %{summary}
 
 %prep
-%setup -q -n php-%{version}
+#%setup -q -n php-%{version}
+%setup -q -n php-src-master
 #-T switch disables the automatic unpacking of the archive. -D switch tells the %setup  
 #command not to delete the directory before unpacking and -a switch tells the %setup 
 #command to unpack only the source directive of the given number after changing directory.
 # n set the dest folder
-%setup -T -D -a 3 -n php-%{version}
-mv apcu-4.0.6 ext/apcu
-%setup -T -D -a 4 -n php-%{version}
-mv yaml-1.1.1 ext/yaml
+#%setup -T -D -a 3 -n php-%{version}
+#mv apcu-4.0.6 ext/apcu
+#%setup -T -D -a 4 -n php-%{version}
+#mv yaml-1.1.1 ext/yaml
 
 
 #  --enable-inline-optimization
@@ -51,56 +58,63 @@ mv yaml-1.1.1 ext/yaml
 
 %build
 mkdir -p  %{buildroot}
-rm configure
+#rm configure
 ./buildconf --force
 
+# %{_sbindir}
+
+# --sbindir=/usr/sbin \
+#     --exec-prefix=/usr \ 
+
 ./configure  \
-                --bindir=/usr/bin \
-                --sbindir=/usr/sbin \
-                --disable-cgi \
-                --disable-rpath \
-                --enable-xmlreader \
-                --enable-xmlwriter \
-                --enable-apcu \
-                --enable-fpm \
-                --enable-intl \
-                --enable-json \
-                --enable-mbregex \
-                --enable-mbstring \
-                --enable-pcntl \
-                --enable-pdo \
-                --enable-sockets \
-                --enable-sysvsem \
-                --enable-sysvshm \
-                --enable-zip \
-                --with-bz2 \
-                --sysconfdir=/etc \
-                --localstatedir=/var \
-                --with-config-file-path=/etc \
-                --with-config-file-scan-dir=/etc/php.d \
-                --with-curl \
-                --with-freetype-dir=/usr/lib \
-                --with-gd \
-                --with-jpeg-dir=/usr/lib \
-                --without-mcrypt \
-                --with-png-dir=/usr/lib \
-                --enable-fd-setsize=8192 \
-                --with-pdo-mysql \
-                --with-yaml \
-                --with-zlib \
-                --without-mhash \
-                --with-mysql \
-                --with-mysqli=mysqlnd \
-                --with-openssl \
-                --with-pcre-regex \
-                --without-pear \
-                --enable-maintainer-zts
+    --bindir=/usr/bin \
+    --sbindir=/usr/sbin \
+    --disable-rpath \
+    --enable-xmlreader \
+    --enable-xmlwriter \
+    --enable-fpm \
+    --enable-intl \
+    --enable-json \
+    --enable-mbregex \
+    --enable-mbstring \
+    --enable-pcntl \
+    --enable-pdo \
+    --enable-sockets \
+    --enable-sysvsem \
+    --enable-sysvshm \
+    --enable-zip \
+    --with-bz2 \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --with-config-file-path=/etc \
+    --with-config-file-scan-dir=/etc/php.d \
+    --with-curl \
+    --with-freetype-dir=/usr/lib \
+    --with-gd \
+    --with-jpeg-dir=/usr/lib \
+    --without-mcrypt \
+    --with-png-dir=/usr/lib \
+    --enable-fd-setsize=8192 \
+    --with-pdo-mysql \
+    --with-zlib \
+    --without-mhash \
+    --with-mysql \
+    --with-mysqli=mysqlnd \
+    --with-openssl \
+    --with-pcre-regex \
+    --without-pear \
+    --enable-maintainer-zts
+               
+# --disable-cgi \
+# --enable-apcu \
+# --with-yaml \
+# --disable-phar \
 
 make -j2
 
 
 %install
-rm -rf %{buildroot}
+#rm -rf %{buildroot}
 mkdir -p %{buildroot}%{_initrddir}
 install -Dp -m0755 sapi/fpm/init.d.php-fpm %{buildroot}%{_initrddir}/php-fpm
 %{__make} install INSTALL_ROOT="%{buildroot}"
@@ -112,10 +126,13 @@ mkdir -p %{buildroot}%{_sysconfdir}/php-fpm.d
 mkdir -p %{buildroot}/var/log/php
 mkdir -p %{buildroot}/var/run/php-fpm
 rm %{buildroot}%{_sysconfdir}/php-fpm.conf.default
-rm %{buildroot}/usr/local/php/php/fpm/status.html
+rm %{buildroot}%{_sysconfdir}/php-fpm.d/www.conf.default
+rm -rf %{buildroot}/usr/local/php
 
 # Fix the link
 (cd %{buildroot}/usr/bin; ln -sfn phar.phar phar)
+
+
 
 %clean
 # rm -rf %{buildroot}
@@ -140,7 +157,6 @@ fi
 exit 0
 
 
-
 %files
 %defattr(-,root,root,-)
 %config(noreplace) %{_sysconfdir}/php.ini
@@ -152,24 +168,21 @@ exit 0
 %dir /var/run/php-fpm
 /etc/rc.d/init.d/php-fpm
 /usr/bin/*
+/usr/sbin/*
 /usr/local/include/php/*
 /usr/local/lib/php/build/*
 #/usr/local/php/fpm/*
-/usr/local/php/man/man1/*
-/usr/local/php/man/man8/*
-/usr/sbin/*
-/usr/local/lib/php/extensions/no-debug-zts-20131226/opcache.a
-/usr/local/lib/php/extensions/no-debug-zts-20131226/opcache.so
+#/usr/local/php/man/man1/*
+#/usr/local/php/man/man8/*
+/usr/local/lib/php/extensions/no-debug-zts-20141001/opcache.a
+/usr/local/lib/php/extensions/no-debug-zts-20141001/opcache.so
+
+
+
 
 
 %changelog
 * Thu Apr 24 2009  Elia Pinto <devzero2000@rpm5.org> 1.0-1
 - First Build
-
-* Fri Oct 31 2003 Marcus Boerger <helly@php.net>
- - Update version to 5.
- - Remove unsure external requirements.
- - Remove non existing directories
-
 
 EOF

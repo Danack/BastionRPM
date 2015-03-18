@@ -11,21 +11,23 @@ mkdir -p ${pythonTempDir}
 
 
 files=( )
-files+=("Babel-1.3")
-files+=("birkenfeld-sphinx-135030faa775")
-files+=("docutils-0.12")
-files+=("elementtree-1.2.6-20050316")
-files+=("Jinja2-2.7.3")
-files+=("MarkupSafe-0.23")
-files+=("meld3-0.6.5")
-files+=("Pygments-1.6")
-files+=("pywatch-0.4")
-files+=("pytz-2014.4")
-files+=("setuptools-3.8.1")
-files+=("six-1.7.3")
-files+=("snowballstemmer-1.2.0")
-files+=("sphinx-bootstrap-theme-master")
-files+=("supervisor-3.0")
+#files+=("Babel-1.3")
+#files+=("birkenfeld-sphinx-135030faa775")
+#files+=("docutils-0.12")
+#files+=("elementtree-1.2.6-20050316")
+#files+=("Jinja2-2.7.3")
+#files+=("MarkupSafe-0.23")
+#files+=("meld3-0.6.5")
+#files+=("Pygments-1.6")
+#files+=("pywatch-0.4")
+#files+=("pytz-2014.4")
+#files+=("setuptools-3.8.1")
+#files+=("six-1.7.3")
+#files+=("snowballstemmer-1.2.0")
+#files+=("sphinx-bootstrap-theme-master")
+#files+=("supervisor-3.0")
+files+=("cloudinitd-1.3.1")
+
 
 
 
@@ -55,11 +57,14 @@ EOF
     then
 
     cat <<EOF >> install.txt
-%{__mkdir} -p \$RPM_BUILD_ROOT%{_sysconfdir}/supervisor.d
-echo '%dir %{_sysconfdir}/supervisor.d' >> INSTALLED_FILES
+%{__mkdir} -p \$RPM_BUILD_ROOT%{_sysconfdir}/supervisord.d
+echo '%dir %{_sysconfdir}/supervisord.d' >> INSTALLED_FILES
 
 %{__mkdir} -p \$RPM_BUILD_ROOT/var/log/supervisor
 echo '%dir /var/log/supervisor' >> INSTALLED_FILES
+
+#%{__mkdir} -p \$RPM_BUILD_ROOT/etc/supervisord.d
+#echo '%dir /etc/supervisord.d' >> INSTALLED_FILES
 
 cp ${startDir}/../packages/python/supervisord.conf \$RPM_BUILD_ROOT/etc/supervisord.conf
 chmod 660 \$RPM_BUILD_ROOT/etc/supervisord.conf
@@ -94,17 +99,16 @@ fi
 
 done
 
-rpm --resign ${pythonTempDir}/*.rpm
+#rpm --resign ${pythonTempDir}/*.rpm
 
 #copy the built files to the repo directory
 cp ${pythonTempDir}/*.x86_64.rpm $startDir/../repo/RPMS/x86_64
 cp ${pythonTempDir}/*.noarch.rpm $startDir/../repo/RPMS/noarch
 cp ${pythonTempDir}/*.src.rpm $startDir/../repo/SRPMS/noarch
 
-
-createrepo $startDir/../repo/SRPMS
-createrepo $startDir/../repo/RPMS/noarch
-createrepo $startDir/../repo/RPMS/x86_64
+#createrepo $startDir/../repo/SRPMS
+#createrepo $startDir/../repo/RPMS/noarch
+#createrepo $startDir/../repo/RPMS/x86_64
 
 #. ${startDir}/copyAndRepo.sh
 

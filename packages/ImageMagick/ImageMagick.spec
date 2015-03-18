@@ -1,6 +1,6 @@
 %global VERSION  6.9.0
 %global MAJOR_VERSION  6
-%global Patchlevel  4
+%global Patchlevel  7
 
 %define date %(date +%%Y_%%m_%%d)
 
@@ -144,29 +144,32 @@ rm -rf %{buildroot}
 
 # --with-openexr
 # --with-jemalloc
-
+export CFLAGS="-Wno-deprecated-declarations"
 %configure --with-quantum-depth=32 \
            --enable-hdri \
            --with-magick-plus-plus=no \
            --without-perl \
            --disable-static \
            --disable-docs \
-           --program-suffix=hdri32
+           --program-suffix=hdri32 \
+           --disable-openmp 
 
 make install DESTDIR=%{buildroot} INSTALL="install -p"
 
-#--disable-openmp \
+#
 
 #--exec-prefix=/usr/sbin \
 #/usr/sbin
 #--disable-openmp  \
+# --with-rsvg=yes \
 
 %configure --with-quantum-depth=16 \
            --with-magick-plus-plus=no \
            --without-perl \
            --disable-static \
            --exec-prefix=/usr/sbin \
-           --disable-docs
+           --disable-docs \
+           --disable-openmp 
            
 make install DESTDIR=%{buildroot} INSTALL="install -p"
 

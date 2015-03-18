@@ -9,12 +9,12 @@
 
 
 Summary: A test imagick rpm package
-Name: imagick-%{date}
+Name: imagick7-%{date}
 Version: master
 Release: 1
 License: None
 Group: Development/Tools
-SOURCE0 : imagick-master.tar.gz
+SOURCE0 : imagick-phpseven.tar.gz
 URL: http://www.phpimagick.com/
 
 #AutoReqProv: no
@@ -25,7 +25,7 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 %{summary}
 
 %prep
-%setup -q -n imagick-master
+%setup -q -n imagick-phpseven
 
  
 
@@ -33,17 +33,18 @@ BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root
 rm -rf %{buildroot}
 mkdir -p  %{buildroot}
 
-export CFLAGS="-Wno-deprecated-declarations -Wdeclaration-after-statement -Wall -Werror"
+phpize
+
+export CFLAGS="-Wno-deprecated-declarations -Wdeclaration-after-statement -Werror -Wall"
 phpize
 ./configure --libdir=/usr/lib64
-#./configure --libdir=/usr/lib64 --with-php-config=/usr/local/bin/php-config
 # --enable-imagick-version-name
 make
 
 %install
-mkdir -p %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20131226/
+mkdir -p %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20141001/
 pwd
-%{__install} -m 755 ./modules/imagick.so %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20131226/imagick.so
+%{__install} -m 755 ./modules/imagick.so %{buildroot}/usr/local/lib/php/extensions/no-debug-zts-20141001/imagick.so
 
 # in builddir
 # cp -a * %{buildroot}
@@ -58,8 +59,8 @@ rm -rf %{buildroot}
 %dir /usr/local/lib/
 %dir /usr/local/lib/php/
 %dir /usr/local/lib/php/extensions/
-%dir /usr/local/lib/php/extensions/no-debug-zts-20131226
-/usr/local/lib/php/extensions/no-debug-zts-20131226/imagick.so
+%dir /usr/local/lib/php/extensions/no-debug-zts-20141001
+/usr/local/lib/php/extensions/no-debug-zts-20141001/imagick.so
 
 %changelog
 * Thu Apr 24 2009  Elia Pinto <devzero2000@rpm5.org> 1.0-1
