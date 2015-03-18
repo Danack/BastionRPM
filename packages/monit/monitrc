@@ -1,0 +1,6 @@
+#log to monit.log
+set logfile /var/log/monit.log
+
+
+include /etc/monit.d/*.cfg
+include /etc/monit.d/*.conf

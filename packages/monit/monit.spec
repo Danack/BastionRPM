@@ -1,14 +1,18 @@
+%global _enable_debug_package 0
+
 Name:           monit
-Version:        5.8.1
+Version:        5.12
 Release:        1%{?dist}
 Summary:        Manages and monitors processes, files, directories and devices
 
 Group:          Applications/Internet
 License:        AGPLv3
 URL:            http://mmonit.com/monit/
-Source0:        http://mmonit.com/monit/dist/binary/%{version}/%{name}-%{version}-linux-x64.tar.gz
+Source0:        monit-%{version}.tar.gz
+Source1:        monitrc
 Source2:        monit.logrotate
-Source4:        monit-logging-conf
+Source3:        monit-logging-conf
+Source4:        monit.init
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -21,43 +25,71 @@ and can execute meaningful causal actions in error situations.
 %prep
 %setup -q
 
+%build
+
+./configure \
+    --without-pam \
+    --bindir=%{_bindir} \
+    --exec-prefix=%{_sbindir} \
+    --prefix= 
+    
+
+
 %install
-mkdir -p  $RPM_BUILD_ROOT%{_mandir}/man1
-cp man/man1/monit.1 $RPM_BUILD_ROOT%{_mandir}/man1/monit.1
+rm -rf $RPM_BUILD_ROOT
 
-install -p -D -m0600 conf/monitrc $RPM_BUILD_ROOT%{_sysconfdir}/monitrc
-install -p -D -m0755 bin/monit $RPM_BUILD_ROOT%{_bindir}/monit
-
-# Log file & logrotate config
-install -p -D -m0644 %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/monit
-mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/log
-install -m0600 /dev/null $RPM_BUILD_ROOT%{_localstatedir}/log/monit.log
-
-
-# Let's include some good defaults
+%{__make} DESTDIR=$RPM_BUILD_ROOT install
+%{__install} -D -m 600 -p %{SOURCE1} $RPM_BUILD_ROOT%{_sysconfdir}/monitrc
+%{__install} -D -m 644 -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/monit
+# %{__install} -p -D -m0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/monit.d/logging
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/monit.d
-install -p -D -m0644 %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/monit.d/logging
+%{__install} -D -m755 %{SOURCE4} $RPM_BUILD_ROOT%{_initrddir}/monit
+%{__install} -D -m0600 /dev/null $RPM_BUILD_ROOT%{_localstatedir}/log/monit.log
 
-%{__sed} -i 's/# set daemon  120.*/set daemon 60  # check services at 1-minute intervals/' \
-    $RPM_BUILD_ROOT%{_sysconfdir}/monitrc
+rm -rf $RPM_BUILD_ROOT/share
 
-%{__sed} -i 's/#  include \/etc\/monit.d\/\*/include \/etc\/monit.d\/\*/' \
-    $RPM_BUILD_ROOT%{_sysconfdir}/monitrc
+
+%post
+/sbin/chkconfig --add %{name}
+
+%preun
+if [ $1 = 0 ]; then
+   /etc/init.d/%{name} stop >/dev/null 2>&1
+   /sbin/chkconfig --del %{name}
+fi
+
+
+
+#%post
+# Register the nginx service
+#if [ $1 -eq 1 ]; then
+#    /sbin/chkconfig --add monit
+#    /sbin/chkconfig --level 2345 php-fpm on
+#
+# Run Monit in standard run-levels
+#  mo:2345:respawn:/usr/local/bin/monit -Ic /etc/monitrc
+
+
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+# rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
-%doc CHANGES COPYING
-%config(noreplace) %{_sysconfdir}/monitrc
-%config(noreplace) %{_sysconfdir}/monit.d/logging
+# %defattr(-,root,root,-)
+%defattr(700,root,root,-)
+%doc COPYING
+%config(noreplace) %attr(0700,root,root) %{_sysconfdir}/monitrc
+# %config(noreplace) %{_sysconfdir}/monit.d/logging
 %config(noreplace) %{_sysconfdir}/logrotate.d/monit
 %config %ghost %{_localstatedir}/log/monit.log
-%{_sysconfdir}/monit.d/
+#%config(noreplace) %{_sysconfdir}/monit.d/
+%dir %{_sysconfdir}/monit.d/
 %{_bindir}/%{name}
-%{_mandir}/man1/monit.1*
+%{_initrddir}/monit
+
+
+
 
 
 %changelog

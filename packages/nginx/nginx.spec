@@ -227,18 +227,14 @@ exit 0
 # Register the nginx service
 if [ $1 -eq 1 ]; then
     /sbin/chkconfig --add nginx
-    /sbin/chkconfig --level 2345 php-fpm on
+    /sbin/chkconfig --level 2345 nginx on
     # print site info
     cat <<BANNER
 ----------------------------------------------------------------------
 
 Thanks for using NGINX!
 
-Check out our community web site:
-* http://nginx.org/en/support.html
-
-If you have questions about commercial support for NGINX please visit:
-* http://www.nginx.com/support.html
+Custom build for basereality
 
 ----------------------------------------------------------------------
 BANNER
