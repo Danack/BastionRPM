@@ -1,9 +1,10 @@
-## Pages to open
+## Pages to open from https://github.com/danack/BastionRPM
 
-/dirstructure
-/pacakges/nginx/nginx.spec
-rpm.basereality.com
-/basereality.repo
+
+./dirstructure
+./pacakges/nginx/nginx.spec
+http://rpm.basereality.com
+./basereality.repo
 
 ## How to RPM stuff
 
@@ -74,18 +75,19 @@ createrepo RPMS/x86_64
 * Forget semver
 
 It's okay for single libraries but for combinations of two different libraries how are you going to name them?
-A decent naming practice is to use %PRODUCT%_%ROLE%_%DATE%
-You're almost certain to want 
+A decent naming practice is to use %PRODUCT%_%ROLE%_%DATE%_%VARIANT% e.g. thread safe.
 
 * What you should be RPM'ing
 
   * To get exact version you want e.g. nginx, php
+  
+  * To get exact config you want, e.g. nginx error screen that has company dressing.
 
-  * composer, any other standalone tools - RPM is a great way of making sure everyone on your team /all servers are using the same version.
+  * composer, any other standalone tools - RPM is a great way of making sure everyone on your team / all servers are using the same version.
 
   * Any thing that has frequent bug fixes - e.g. ImageMagick release every week.
 
-  * Anything that isn't supported by repos, e.g. 
+  * Anything that isn't supported by repos, e.g. new libraries, or newer versions of libraries than provided by your builtin repos.
 
 
 Removes complexity from chef/puppet in projects. 

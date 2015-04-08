@@ -44,7 +44,7 @@ $s3Client = S3Client::factory([
 
 $s3Client->getConfig()->set('curl.options', array(CURLOPT_VERBOSE => true));
 
-$sync = new S3Sync("rpm.basereality.com", $aclGenerator,  $s3Client);
+$sync = new S3Sync($rpmBucketName, $aclGenerator,  $s3Client);
 
 $sync->putFile("../repo/index.html", "index.html");
 $sync->putFile("../repo/basereality-GPG-KEY.public", "basereality-GPG-KEY.public");
