@@ -250,6 +250,14 @@ if [ $1 -ge 1 ]; then
     /sbin/service nginx upgrade &>/dev/null || :
 fi
 
+
+
+
+
+
+
+
+
 %changelog
 * Thu Mar 15 2012 Sergey Budnevitch <sb@nginx.com>
 - 1.0.14

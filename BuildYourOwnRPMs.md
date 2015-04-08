@@ -1,6 +1,5 @@
 ## Pages to open
 
-
 /dirstructure
 /pacakges/nginx/nginx.spec
 rpm.basereality.com
@@ -8,17 +7,17 @@ rpm.basereality.com
 
 ## How to RPM stuff
 
-*) RPM is what you use when installing something through APT/YUM
+* RPM is what you use when installing something through APT/YUM
 
-*) This talk is probably going to be quite boring for Windows users.
+* This talk is probably going to be quite boring for Windows users.
 
-*) Going to talk about why/what you should be doing at the end.
+* Going to talk about why/what you should be doing at the end.
 
-*) Going to build nginx. Doesn't support plugins or extensions at runtime. Everything has to be compiled when nginx is built.
+* Going to build nginx. Doesn't support plugins or extensions at runtime. Everything has to be compiled when nginx is built.
 
-*) Install rpmbuild (or rpm-tools).  
+* Install rpmbuild (or rpm-tools).  
 
-*) Create the folders:
+* Create the folders:
 
 BUILD
 BUILDROOT
@@ -27,70 +26,67 @@ SOURCES
 SPECS
 SRPMS
 
-*) Put the source zip file and any other files that you want to package into the SOURCES directory.
+* Put the source zip file and any other files that you want to package into the SOURCES directory.
 
-*) Make a spec file (aka download a spec file from the net).
-It has it's own weird-ass scripting language. Similar to make, and who doesn't like make?
-https://stereochro.me/ideas/rpm-for-the-unwilling
+* Make a spec file (aka download a spec file from the net). It has it's own weird-ass scripting language. Similar to make, and who doesn't like make?
 
-Spec file important bits
-    %prep  - Extracts source files into BUILD directory. 
-        %setup -T -D -a 5 -n nginx-%{version}
-        Which means extract source 5 into the specified directory and don't empty the directory before extracting.
-    
-    
-    %build - Builds the build process
-    %install -  installs into the BUILDROOT directory.
-    %pre + %post - allows you to define stuff that gets run when the package is installed e.g. turning on service.
-       /sbin/chkconfig --add nginx
-        /sbin/chkconfig --level 2345 php-fpm on
-    
-    %files  All files must be listed.
-		  The files should be in a sub-directory that matches where they will be installed by the package.
-		  /foo/rpmbuild/BUILDROOT/usr/sbin/composer 
+  * %prep  - Extracts source files into BUILD directory. 
+  * %setup -T -D -a 5 -n nginx-%{version}   Which means extract source 5 into the specified directory and don't empty the directory before extracting.
+  * %build - Builds the build process
+  * %install -  installs into the BUILDROOT directory.
+  * %pre + %post - allows you to define stuff that gets run 
+    when the package is installed e.g. turning on service.
+  * %files  All files must be listed.
+    The files should be in a sub-directory that 
+    matches where they will be installed by the package.
+    /foo/rpmbuild/BUILDROOT/usr/sbin/composer 
 
-*) Build the project
+* Build the project
 
 rpmbuild --define "_topdir `pwd`" -ba SPECS/composer.spec
 
-*) Copy it out of there into a permanent directory.
+The builds it into the BUILDROOT directory, not your system
 
-*) Need to sign it - there's a tool to sign it with GPG.
+
+* Copy it out of there into a permanent directory.
+
+* Need to sign it - there's a tool to sign it with GPG.
 rpm --resign RPMS/noarch/*.rpm
 rpm --resign RPMS/x86_64/*.rpm
 
-
-*) Need to run createrepo. This stores a DB of all the RPMs available, what versions they are, what requirements they have etc. This allows yum/apt to know what can be installed and download it dependencies all at once.
+* Need to run createrepo. This stores a DB of all the RPMs available, what versions they are, what requirements they have etc. This allows yum/apt to know what can be installed and download it dependencies all at once.
 
 createrepo RPMS/noarch
 createrepo RPMS/x86_64
 
+* Optional - generate html pages to make navigating the rpm site be nice.
 
-*) Optional - generate html pages to make navigating the rpm site be nice.
+* Upload to your server or S3 static site.
 
-*) Upload to your server or S3 static site.
+* Show rpm.basereality.com
 
-*) Show rpm.basereality.com
+* Add the repo to yum install in /etc/yum.d/basereality.repo
 
-*) Add the repo to yum install in /etc/yum.d/basereality.repo
-
-*) That's it. You can now install packages.
+* That's it. You can now install packages.
 
 <--- Need to get to here.
 
-*) Forget semver
+* Forget semver
 
 It's okay for single libraries but for combinations of two different libraries how are you going to name them?
 A decent naming practice is to use %PRODUCT%_%ROLE%_%DATE%
 You're almost certain to want 
 
-*) What you should be RPM'ing
+* What you should be RPM'ing
 
-nginx - yes, only way to get exact version you want.
+  * To get exact version you want e.g. nginx, php
 
-composer, any other standalone tools - RPM is a great way of making sure everyone on your team /all servers are using the same version.
+  * composer, any other standalone tools - RPM is a great way of making sure everyone on your team /all servers are using the same version.
 
-Any thing that has frequent bug fixes - e.g. ImageMagick release every week.
+  * Any thing that has frequent bug fixes - e.g. ImageMagick release every week.
+
+  * Anything that isn't supported by repos, e.g. 
+
 
 Removes complexity from chef/puppet in projects. 
 
@@ -103,19 +99,19 @@ Removes complexity from chef/puppet in projects.
 <--- Hope to get to here.
 
 
-*) Don't use it for complicated stuff.
+* Don't use it for complicated stuff.
 
 ffmpeg and mysql. Both looked impossible to compile, both have usable executables availble.
 
 
-*) Security is kind of a joke. 
+* Security is kind of a joke. 
 The private key has to be password protected. You're meant to use a 'cryptographically strong password' which basically means no-one can remember it, and so it needs to be written down onto a post it and attached the monitor.
 
 Have a server that just downloads all the files from the RPM repo every few hours, and scan for changes in MD5 / sha1_file.
 
 Subterfuge in releases is the most likely source of hacks.
 
-*) Security - Import your private key to GPG. And magic stuff
+*)Security - Import your private key to GPG. And magic stuff
 
 gpg --import basereality-GPG-KEY.private
 
