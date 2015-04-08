@@ -12,7 +12,8 @@
     
     "repositories": [
         {
-            "packagist": false
+            "type": "vcs",
+            "url": "https://github.com/amphp/amp"
         },
         {
             "type": "vcs",
@@ -28,19 +29,11 @@
         },
         {
             "type": "vcs",
-            "url": "/documents/projects/github/GithubArtaxService"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/Danack/ArtaxServiceBuilder"
         },
         {
-             "type": "vcs",
-             "url": "https://github.com/rdlowrey/acesync"
-        },
-        {
-             "type": "vcs",
-             "url": "https://github.com/rdlowrey/after"
+            "type": "vcs",
+            "url": "https://github.com/daverandom/libdns"
         },
         {
              "type": "vcs",
@@ -52,15 +45,7 @@
         },
         {
              "type": "vcs",
-             "url": "https://github.com/DaveRandom/Addr"
-        },
-        {
-             "type": "vcs",
-             "url": "https://github.com/rdlowrey/alert"
-        },
-        {
-             "type": "vcs",
-             "url": "https://github.com/daverandom/libdns"
+             "url": "https://github.com/amphp/dns"
         },
         {
             "type": "vcs",
@@ -82,7 +67,6 @@
             "type": "vcs",
             "url": "https://github.com/justinrainbow/json-schema"
         },
-    
         {
             "type": "vcs",
             "url": "https://github.com/composer/satis"
@@ -100,13 +84,29 @@
             "type": "vcs",
             "url": "https://github.com/nrk/predis"
         },
+        {
+            "type": "vcs",
+            "url": "https://github.com/rdlowrey/nbsock"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/php-fig/log"
+        },
         { 
             "type": "vcs", 
              "url": "https://github.com/Danack/Bastion"
         },
         {
             "type": "vcs",
+            "url": "https://github.com/danack/GithubArtaxService"
+        },
+        {
+            "type": "vcs",
             "url": "https://github.com/symfony/console"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/Danack/console"
         },
         {
             "type": "vcs",
@@ -115,15 +115,20 @@
         {
             "type": "vcs",
             "url": "https://github.com/symfony/EventDispatcher"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/zendframework/Component_ZendEventManager"
         }
     ],
  
     "require": {
-        "aws/aws-sdk-php": "2.5.*",
-        "danack/bastion": "~0.0.2"
+        "danack/bastion": "^0.0.5",
+        "danack/githubartaxservice": "^0.4.6"
     },
     "autoload": {
         "psr-0": { "Bastion": "lib/" }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

@@ -11,14 +11,14 @@ Summary: Custom built PHP with APCU and other extensions
 Name: php-basereality-%{date}
 Provides: php
 Conflicts: php
-Version: 5.6.5
+Version: 5.6.7
 Release: 1
 License: None
 Group: Development/Tools
 
 Requires: bzip2, libcurl, libxml2
 
-SOURCE0: http://php.net/get/php-5.6.5.tar.gz
+SOURCE0: http://php.net/get/php-%{version}.tar.gz
 SOURCE1:        php.ini
 SOURCE2:        php-cli.ini
 SOURCE3:        apcu-4.0.6.tgz
@@ -57,6 +57,10 @@ rm configure
 ./configure  \
                 --bindir=/usr/bin \
                 --sbindir=/usr/sbin \
+                --sysconfdir=/etc \
+                --localstatedir=/var \
+                --with-config-file-path=/etc \
+                --with-config-file-scan-dir=/etc/php.d \
                 --disable-cgi \
                 --disable-rpath \
                 --enable-xmlreader \
@@ -74,10 +78,6 @@ rm configure
                 --enable-sysvshm \
                 --enable-zip \
                 --with-bz2 \
-                --sysconfdir=/etc \
-                --localstatedir=/var \
-                --with-config-file-path=/etc \
-                --with-config-file-scan-dir=/etc/php.d \
                 --with-curl \
                 --with-freetype-dir=/usr/lib \
                 --with-gd \

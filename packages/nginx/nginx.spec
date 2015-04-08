@@ -3,16 +3,7 @@
 %define nginx_user nginx
 %define nginx_group nginx
 
-
 %define date %(date +%%Y_%%m_%%d) 
-
-
-# --without-http_userid_module
-# --without-http_addition_module
-# --without-http_dav_module 
-# --without-http_random_index_module
-# --without-mail 
-# --without-mail_ssl_module 
                             
 %define module_list --add-module=nginx-upstream-fair-master --with-http_ssl_module --with-http_realip_module --with-http_sub_module --with-http_flv_module --with-http_mp4_module --with-http_gzip_static_module --with-http_secure_link_module --with-http_stub_status_module --with-file-aio --with-ipv6 
 
@@ -67,20 +58,21 @@ Requires: nginx
 not stripped version of nginx build with the debugging log support
 
 %prep
+# Prep extracts the source from the zip files into the build directory. There
+# are built in macros for this
+
 %setup -q -n nginx-%{version}
 %setup -T -D -a 5 -n nginx-%{version}
 
-
-#extract
-#%{__tar} zxvf %{SOURCE8}
-#-T switch disables the automatic unpacking of the archive. -D switch tells the %setup 
-#command not to delete the directory before unpacking and -a switch tells the %setup 
-#command to unpack only the source directive of the given number after changing directory.
+# -T switch disables the automatic unpacking of the archive. -D switch tells the %setup 
+# command not to delete the directory before unpacking and -a switch tells the %setup 
+# command to unpack only the source directive of the given number after changing directory.
 # n set the dest folder
-#%setup -T -D -a 8
+
 
 
 %build
+# Build the project.
 
 echo %{module_list}
 
@@ -103,6 +95,7 @@ echo %{module_list}
         --with-debug \
         --with-cc-opt="%{optflags} $(pcre-config --cflags)" \
         $*
+        
 make %{?_smp_mflags}
 %{__mv} %{_builddir}/nginx-%{version}/objs/nginx \
         %{_builddir}/nginx-%{version}/objs/nginx.debug
@@ -127,6 +120,9 @@ make %{?_smp_mflags}
 make %{?_smp_mflags}
 
 %install
+# Install copies the files from the BUILD directory to the BUILDROOT 
+
+
 # remove default stripping
 %define __spec_install_port /usr/lib/rpm/brp-compress
 
@@ -161,10 +157,7 @@ make %{?_smp_mflags}
 %{__mkdir} -p $RPM_BUILD_ROOT%{_initrddir}
 
 
-#%if 0%{?suse_version}
-#%{__install} -m755 %{SOURCE7} \
-#   $RPM_BUILD_ROOT%{_initrddir}/nginx
-#%else
+
 %{__install} -m755 %{SOURCE2} \
    $RPM_BUILD_ROOT%{_initrddir}/nginx
 #%endif
@@ -180,6 +173,10 @@ make %{?_smp_mflags}
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
+
+
+
+
 
 %files
 %defattr(-,root,root)
@@ -213,6 +210,8 @@ make %{?_smp_mflags}
 
 %files debug
 %{_sbindir}/nginx.debug
+
+
 
 %pre
 # Add the "nginx" user

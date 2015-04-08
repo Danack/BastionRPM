@@ -3,7 +3,7 @@ template "/etc/yum.repos.d/basereality.repo" do
   source "basereality.repo.erb"
   owner "root"
   group "root"
-  mode 00600
+  mode 00644
 end
 
 
@@ -16,7 +16,7 @@ template "/etc/yum.repos.d/epel.repo" do
   source "epel.repo.erb"
   owner "root"
   group "root"
-  mode 00600
+  mode 00644
 end
 
 

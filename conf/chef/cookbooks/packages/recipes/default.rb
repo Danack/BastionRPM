@@ -38,6 +38,9 @@ package "giflib-devel"
 package "libtool"
 
 package "valgrind"
+package "composer-2015_02_28"
+
+
 #Sphinx packages
 #package "babel"
 #package "setuptools"

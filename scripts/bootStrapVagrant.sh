@@ -68,7 +68,7 @@ mkdir -p /etc/chef
 
 cd /home/github/BastionRPM
 chef-solo -c conf/chef/config.rb -j conf/chef/node_centos.json
-cd /home/github/BastionRPM
+cd /home/github
 gpg --import basereality-GPG-KEY.private
 
 # These are to allow us to build signed rpms

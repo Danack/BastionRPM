@@ -6,7 +6,6 @@ require_once(realpath(__DIR__).'/../../BastionRPMConfig.php');
 
 
 use Aws\S3\S3Client;
-use \Aws\CloudFront\CloudFrontClient;
 use Bastion\S3Sync;
 use Bastion\S3ACLNoRestrictionGenerator;
 
@@ -17,15 +16,15 @@ if (ini_get('allow_url_fopen') == false) {
     exit(-1);
 }
 
-
-$syncTime = filemtime("sign.time");
-
-$now = time();
-
-//if (($now - $syncTime) > 5) {
-//    echo "sign.time is more than 5 seconds old - the RPM files have not been signed recently, so aborting upload.";
-//    exit(-1);
-//}
+if (false) {
+    //Theoretically this should be used
+    $syncTime = filemtime("sign.time");
+    $now = time();
+    if (($now - $syncTime) > 5) {
+        echo "sign.time is more than 5 seconds old - the RPM files have not been signed recently, so aborting upload.";
+        exit(-1);
+    }
+}
 
 
 $urlList = [
@@ -34,10 +33,6 @@ $urlList = [
     "/RPMS/x86_64/index.html",
     "/RPMS/index.html",
 ];
-
-
-
-    
 
 
 

@@ -69,6 +69,10 @@ mkdir -p  %{buildroot}
 ./configure  \
     --bindir=/usr/bin \
     --sbindir=/usr/sbin \
+    --sysconfdir=/etc \
+    --localstatedir=/var \
+    --with-config-file-path=/etc \
+    --with-config-file-scan-dir=/etc/php.d \    
     --disable-rpath \
     --enable-xmlreader \
     --enable-xmlwriter \
@@ -84,10 +88,6 @@ mkdir -p  %{buildroot}
     --enable-sysvshm \
     --enable-zip \
     --with-bz2 \
-    --sysconfdir=/etc \
-    --localstatedir=/var \
-    --with-config-file-path=/etc \
-    --with-config-file-scan-dir=/etc/php.d \
     --with-curl \
     --with-freetype-dir=/usr/lib \
     --with-gd \
@@ -98,7 +98,6 @@ mkdir -p  %{buildroot}
     --with-pdo-mysql \
     --with-zlib \
     --without-mhash \
-    --with-mysql \
     --with-mysqli=mysqlnd \
     --with-openssl \
     --with-pcre-regex \
